@@ -25,10 +25,10 @@ class Graph (object):
 	return self.__edges
     
     def add_vertex (self, v):
-	self.__vertices.update (v)
+	self.__vertices.append (v)
 
     def add_edge (self, e):
-	self.__edges.update (e)
+	self.__edges.append (e)
 
     def adjacencies (self, v):
 	return sorted (list (
