@@ -1,3 +1,5 @@
+import collections
+
 class Graph (object):
     def __init__(self, vertices = None, edges = None):
         if vertices is None:
@@ -22,7 +24,15 @@ def fromAdjacencyLists (Ls):
     return NotImplemented
 
 def toAdjacencyLists (G):
-    return NotImplemented
+    adjacencies = {}
+    for v in G.vertices:
+	adjacencies [v] = []
+	for (x,y) in [e for e in G.edges if v in e]:
+	    if x != v:
+		adjacencies[v].append (x)
+	    else:
+		adjacencies[v].append (y)
+    return adjacencies
 
 def toAdjacencyMatrix (G):
     return NotImplemented

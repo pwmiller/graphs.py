@@ -1,23 +1,19 @@
+import graph
+
 def realizeDegreeSequence (d):
     return NotImplemented
 
 def DFS (G, v):
-
-    def neighbors (v):
-        return [ list (set (e).symmetric_difference (set ([v])))[0] for e in G.edges if v in e]
-
+    neighbors = graph.toAdjacencyLists (G)
     yield v
     visited = set ([v])
-    S = []
-    for vertex in neighbors (v):
-        S.append (vertex)
-    while len (S):
+    S = neighbors [v]
+    while S:
         w = S.pop()
-        for u in neighbors (w):
-            if u not in visited:
-                yield u
-                visited.add (u)
-                S.append (u)
+	if w not in visited:
+	    yield w
+	    visited.add (w)
+	    S.extend (neighbors [w])
 
 def BFS (G, v):
     return NotImplemented
