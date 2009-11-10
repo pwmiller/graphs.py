@@ -1,12 +1,15 @@
 import graph
 from combinatorics import pairs
 from sympy import Symbol
+from math import floor
 
 def PetersenGraph ():
     return generalizedPetersenGraph (5, 2)
 
 def generalizedPetersenGraph (n, k):
-    return NotImplemented
+    if n < 2 or k < 1 or k > floor ( (n-1) / 2 ):
+        raise ValueError, "Parameters out of range."
+
 
 def tetrahedron():
     return graph.Graph (vertices = range (4), edges = pairs (range (4)))
