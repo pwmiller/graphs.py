@@ -1,13 +1,17 @@
 import collections
+import sympy
 
 class Graph (object):
-    def __init__(self, vertices = None, edges = None):
+    def __init__(self, vertices = None, edges = None, weight = None):
         if vertices is None:
             vertices = []
         if edges is None:
             edges = []
+        if weight is None:
+            weight = lambda n: 1
 
         self.vertices = list (set (vertices))
+        self.weight = weight
 
         for e in edges:
             if len (e) != 2 or \
@@ -18,24 +22,40 @@ class Graph (object):
         self.edges = list (set ([frozenset (e) for e in edges]))
 
 def fromAdjacencyMatrix (M):
-    return NotImplemented
+    M = sympy.matrices.Matrix (M)
+    if M != M.transpose():
+        raise ValueError, "The adjacency matrix of a graph must be symmetric."
+    n = M.shape[0]
+    return Graph (vertices = range (n), edges = \
+               [ (x,y) for x in range (n) for y in range (n) if M[x,y] != 0])
 
 def fromAdjacencyLists (Ls):
-    return NotImplemented
+    Ls = dict (Ls)
+    vertices = []
+    edges = []
+    for v, neighbors in Ls:
+        vertices.append (v)
+        for u in neighbors:
+            edges.append (u, v)
+    return Graph (vertices = vertices, edges = edges)
 
 def toAdjacencyLists (G):
     adjacencies = {}
     for v in G.vertices:
-	adjacencies [v] = []
-	for (x,y) in [e for e in G.edges if v in e]:
-	    if x != v:
-		adjacencies[v].append (x)
-	    else:
-		adjacencies[v].append (y)
+        adjacencies [v] = []
+        for (x,y) in [e for e in G.edges if v in e]:
+            if x != v:
+                adjacencies[v].append (x)
+            else:
+                adjacencies[v].append (y)
     return adjacencies
 
 def toAdjacencyMatrix (G):
-    return NotImplemented
+    n = len (G.vertices)
+    M = sympy.matrices.zeros (n)
+    for (u,v) in G.edges:
+        M[u,v] = M[v,u] = 1
+    return M
 
-def makeSimple (G):
+def toDotString (G):
     return NotImplemented

@@ -19,13 +19,16 @@ def components (G):
     result = []
     V = G.vertices
     while V:
-	c = list (DFS (G, V[0]))
-	result.append (c)
-	V = [v for v in V if v not in c]
+        c = list (DFS (G, V[0]))
+        result.append (c)
+        V = [v for v in V if v not in c]
     return result
 
 def is_connected (G):
     return len (list (DFS (G, G.vertices[0]))) == len (G.vertices)
+
+def is_tree (G):
+    return is_connected (G) and len (G.edges) == len (G.vertices) - 1
 
 def vertexConnectivity (G):
     return NotImplemented
