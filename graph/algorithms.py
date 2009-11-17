@@ -1,7 +1,10 @@
+'''
+This module implements several algorithms on our graph structure and provides
+some utility data structures.
+'''
+
 import heapq
 import graph
-
-# Some data structures and utility objects.
 
 # __unspecified is intended for use as a default keyword parameter.  We don't
 # use None for this because one might want to have None as a vertex in a graph.
