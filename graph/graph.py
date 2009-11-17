@@ -43,7 +43,7 @@ def toAdjacencyLists (G):
     adjacencies = {}
     for v in G.vertices:
         adjacencies [v] = []
-        for (x,y) in [e for e in G.edges if v in e]:
+        for (x, y) in [e for e in G.edges if v in e]:
             if x != v:
                 adjacencies[v].append (x)
             else:
@@ -53,8 +53,8 @@ def toAdjacencyLists (G):
 def toAdjacencyMatrix (G):
     n = len (G.vertices)
     M = sympy.matrices.zeros (n)
-    for (u,v) in G.edges:
-        M[u,v] = M[v,u] = 1
+    for (u, v) in G.edges:
+        M[u, v] = M[v, u] = 1
     return M
 
 def toDotString (G):
