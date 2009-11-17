@@ -10,7 +10,7 @@ def degrees (G):
     '''
     Returns the degree of each vertex of $G$, in no particular order.
     '''
-    return set ([len ([e for e in G.edges if v in e]) for v in G.vertices])
+    return [len ([e for e in G.edges if v in e]) for v in G.vertices]
 
 def degreeSequence (G):
     return sorted (list (degrees (G)))
