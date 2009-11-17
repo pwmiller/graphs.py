@@ -3,7 +3,20 @@ import graph
 
 # Some data structures and utility objects.
 
+# __unspecified is intended for use as a default keyword parameter.  We don't
+# use None for this because one might want to have None as a vertex in a graph.
+# Since this object is constructed in this module, it's guaranteed not to be a
+# vertex in any graph, unless the end user of this library goes out of his
+# way to access it -- and, in that case, said user deserves any wierd behavior
+# he gets.
+
+__unspecified = object()
+
 class PriorityQueue (object):
+    '''
+    This object wraps the functionality of the heapq module into a single
+    class.
+    '''
     def __init__(self, data):
         self.__data = []
         data = list (data)
@@ -23,6 +36,9 @@ class PriorityQueue (object):
         return len (self.__data)
 
 class UnionFind (object):
+    '''
+    This is a standard union find data structure.
+    '''
     def __init__(self):
         self.parent = {}
         self.rank   = {}
@@ -68,8 +84,6 @@ class __Infinity (object):
         #pylint: disable-msg=r0201
         return True
 
-Infinity = __Infinity()
-
 class __MinusInfinity (object):
     ''' Instances X of this class satisfy X < Y for all Y. '''
 
@@ -84,10 +98,9 @@ class __MinusInfinity (object):
         return False
 
 MinusInfinity = __MinusInfinity()
+Infinity = __Infinity()
 
-del __Infinity, __MinusInfinity
-
-def DFS (G, v = None):
+def DFS (G, v = __unspecified):
     if v not in G.vertices:
         v = G.vertices[0]
     neighbors = graph.toAdjacencyLists (G)
@@ -101,10 +114,10 @@ def DFS (G, v = None):
             visited.add (w)
             S.extend (neighbors [w])
 
-def BFS (G, v):
+def BFS (G, v = __unspecified):
     return NotImplemented
 
-def Prim (G, root = None):
+def Prim (G, root = __unspecified):
     if root not in G.vertices:
         root = G.vertices[0]
     key = {}
@@ -137,3 +150,5 @@ def Kruskal (G):
             T.add ( (u, v) )
             U.union (u, v)
     return T
+
+del __Infinity, __MinusInfinity
