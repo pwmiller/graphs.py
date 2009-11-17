@@ -16,14 +16,12 @@ def is_regular (G):
     return minDegree (G) == maxDegree (G)
 
 def components (G):
-    result = []
     V = G.vertices
     while V:
-        c = list (DFS (G, V[0]))
-        result.append (c)
-        V = [v for v in V if v not in c]
-    return result
-
+        component = list (DFS (G, V[0]))
+        yield component
+        V = [v for v in V if v not in component]
+    
 def is_connected (G):
     return len (list (DFS (G, G.vertices[0]))) == len (G.vertices)
 
