@@ -13,6 +13,6 @@ def edgeInducedSubgraph (G, edges):
     vertices = []
     edges = map (tuple, edges)
     for (u, v) in edges:
-	vertices.extend ( [u, v] )
+        vertices.extend ( [u, v] )
     vertices = list (set (vertices))
     return graph.Graph (vertices = vertices, edges = edges)

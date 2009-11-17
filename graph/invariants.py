@@ -21,7 +21,7 @@ def components (G):
         component = list (DFS (G, V[0]))
         yield component
         V = [v for v in V if v not in component]
-    
+
 def is_connected (G):
     return len (list (DFS (G, G.vertices[0]))) == len (G.vertices)
 
