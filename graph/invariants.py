@@ -10,10 +10,10 @@ def degrees (G):
     '''
     Returns the degree of each vertex of $G$, in no particular order.
     '''
-    return [len ([e for e in G.edges if v in e]) for v in G.vertices]
+    return (len ([e for e in G.edges if v in e]) for v in G.vertices)
 
 def degreeSequence (G):
-    return sorted (list (degrees (G)))
+    return sorted (degrees (G))
 
 def minDegree (G):
     '''
@@ -68,5 +68,5 @@ def radius (G):
 def chromaticNumber (G):
     return NotImplemented
 
-def articulationVertices (G):
+def is_Eulerian (G):
     return NotImplemented

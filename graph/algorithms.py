@@ -109,13 +109,13 @@ def DFS (G, v = __unspecified):
     neighbors = graph.toAdjacencyLists (G)
     yield v
     visited = set ([v])
-    S = neighbors [v]
-    while S:
-        w = S.pop()
+    stack = neighbors [v]
+    while stack:
+        w = stack.pop()
         if w not in visited:
             yield w
             visited.add (w)
-            S.extend (neighbors [w])
+            stack.extend (neighbors [w])
 
 def BFS (G, v = __unspecified):
     return NotImplemented
@@ -154,4 +154,4 @@ def Kruskal (G):
             U.union (u, v)
     return T
 
-del __Infinity, __MinusInfinity
+del __Infinity, __MinusInfinity, __unspecified
