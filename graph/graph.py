@@ -46,6 +46,12 @@ def toAdjacencyMatrix (G):
         M[u, v] = M[v, u] = 1
     return M
 
+def toIncidenceMatrix (G):
+    return NotImplemented
+
+def fromIncidenceMatrix (M):
+    return NotImplemented
+
 def fromAdjacencyLists (Ls):
     Ls = dict (Ls)
     vertices = []

@@ -46,6 +46,12 @@ def is_tree (G):
     '''
     return is_connected (G) and len (G.edges) == len (G.vertices) - 1
 
+def is_bipartite (G):
+    return NotImplemented
+
+def is_triangleFree (G):
+    return NotImplemented
+
 def eigenvalues (G):
     return NotImplemented
 
@@ -67,5 +73,17 @@ def radius (G):
 def chromaticNumber (G):
     return NotImplemented
 
-def is_Eulerian (G):
+def is_eulerian (G):
+    return NotImplemented
+
+def is_hamiltonian (G):
+    return NotImplemented
+
+def is_selfComplementary (G):
+    '''
+    See West, p. 17., exercise 1.1.31.
+    '''
+    return NotImplemented
+
+def girth (G):
     return NotImplemented

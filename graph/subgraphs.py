@@ -30,3 +30,6 @@ def components (G):
         component = list (DFS (G, V[0]))
         yield component
         V = [v for v in V if v not in component]
+
+def nontrivialComponents (G):
+    return NotImplemented

@@ -27,6 +27,12 @@ except ImportError:
                     break
             else:
                 return
+
+	    # The following comment is needed to suppress a spurious
+	    # warning from pylint:
+
+	    # pylint: disable-msg W0631
+	    
             indices[i] += 1
             for j in range(i+1, r):
                 indices[j] = indices[j-1] + 1

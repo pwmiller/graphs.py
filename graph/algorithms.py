@@ -154,4 +154,11 @@ def Kruskal (G):
             U.union (u, v)
     return T
 
+def bridges (G):
+    '''
+    See West, p. 23., Theorem 1.2.14. :
+    An edge is a cut edge if and only if it belongs to no cycle.
+    '''
+    return NotImplemented
+
 del __Infinity, __MinusInfinity
