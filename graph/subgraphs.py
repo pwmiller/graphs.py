@@ -1,4 +1,5 @@
 import graph
+from algorithms import DFS
 
 def graphCenter (G):
     return NotImplemented
@@ -16,3 +17,10 @@ def edgeInducedSubgraph (G, edges):
         vertices.extend ( [u, v] )
     vertices = list (set (vertices))
     return graph.Graph (vertices = vertices, edges = edges)
+
+def components (G):
+    V = G.vertices
+    while V:
+        component = list (DFS (G, V[0]))
+        yield component
+        V = [v for v in V if v not in component]

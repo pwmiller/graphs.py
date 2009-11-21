@@ -1,3 +1,14 @@
+'''
+The \code{instances} module provides two broad classes of entity:
+\begin{enumerate}
+    \item Functions which construct individual instances of a
+    parameterized family of graphs, and
+
+    \item Individual instances of graphs that are not members of a
+    parameterized family, but are nonetheless interesting or useful.
+\end{enumerate}
+'''
+
 import graph
 from combinatorics import pairs
 from sympy import Symbol

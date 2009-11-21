@@ -154,4 +154,4 @@ def Kruskal (G):
             U.union (u, v)
     return T
 
-del __Infinity, __MinusInfinity, __unspecified
+del __Infinity, __MinusInfinity

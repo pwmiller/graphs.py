@@ -1,3 +1,8 @@
+'''
+The \code{combinatorics} module implements some useful but essentially
+generic combinatorical functions.
+'''
+
 try:
     from itertools import combinations
 except ImportError:

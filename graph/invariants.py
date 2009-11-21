@@ -34,13 +34,6 @@ def is_regular (G):
     '''
     return minDegree (G) == maxDegree (G)
 
-def components (G):
-    V = G.vertices
-    while V:
-        component = list (DFS (G, V[0]))
-        yield component
-        V = [v for v in V if v not in component]
-
 def is_connected (G):
     '''
     Returns True if and only if $G$ is connected, otherwise returns False.
@@ -52,6 +45,12 @@ def is_tree (G):
     Returns True if and only if $G$ is a tree, otherwise returns False.
     '''
     return is_connected (G) and len (G.edges) == len (G.vertices) - 1
+
+def eigenvalues (G):
+    return NotImplemented
+
+def laplacianEigenvalues (G):
+    return NotImplemented
 
 def vertexConnectivity (G):
     return NotImplemented

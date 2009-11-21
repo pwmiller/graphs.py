@@ -1,1 +1,3 @@
-import graph
+import instances
+
+octahdron = instances.octahedron()

@@ -1,25 +1,28 @@
-import collections
+'''
+The \code{graph} module implements the graph data structure itself,
+as well as functions for converting graph structures to and from
+the adjacency list and adjacency matrix representations.
+'''
+
 import sympy
 
 class Graph (object):
-    def __init__(self, vertices = None, edges = None, weight = None):
+    def __init__(self, vertices = None, edges = None):
         if vertices is None:
             vertices = []
         if edges is None:
             edges = []
-        if weight is None:
-            weight = lambda n: 1
-
-        self.vertices = list (set (vertices))
-        self.weight = weight
+	    
+        self.vertices = set (vertices)
 
         for e in edges:
+            e = tuple (sorted (e))
             if len (e) != 2 or \
                    e[0] not in self.vertices or e[1] not in self.vertices:
                 raise TypeError, "%(edge)s is not a valid edge." % \
                       { 'edge' : repr (e) }
 
-        self.edges = list (set ([frozenset (e) for e in edges]))
+        self.edges = set ([frozenset (e) for e in edges])
 
 def fromAdjacencyMatrix (M):
     M = sympy.matrices.Matrix (M)
