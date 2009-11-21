@@ -27,9 +27,9 @@ def edgeInducedSubgraph (G, edges):
 def components (G):
     V = G.vertices
     while V:
-        component = list (DFS (G, V[0]))
-        yield component
-        V = [v for v in V if v not in component]
+        componentVertices = list (DFS (G, V[0]))
+        yield vertexInducedSubgraph (G, componentVertices)
+        V = [v for v in V if v not in componentVertices]
 
 def nontrivialComponents (G):
     return NotImplemented

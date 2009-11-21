@@ -33,7 +33,8 @@ def K (*ns):
 
 def hypercube (k):
     '''
-    Returns the $k$-dimensional hypercube graph.
+    Returns the $k$-dimensional hypercube graph.  See West, p. 36,
+    example 1.3.8.
     '''
     return NotImplemented
 

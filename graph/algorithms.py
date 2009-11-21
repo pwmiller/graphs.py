@@ -105,7 +105,9 @@ Infinity = __Infinity()
 
 def DFS (G, v = __unspecified):
     if v not in G.vertices:
-        v = G.vertices[0]
+	# The following selects some arbitrary element from G.vertices
+	# without converting the whole mess to a list.
+        v = iter (G.vertices).next()
     neighbors = graph.toAdjacencyLists (G)
     yield v
     visited = set ([v])
@@ -159,6 +161,9 @@ def bridges (G):
     See West, p. 23., Theorem 1.2.14. :
     An edge is a cut edge if and only if it belongs to no cycle.
     '''
+    return NotImplemented
+
+def realizeDegreeSequence (*seq):
     return NotImplemented
 
 del __Infinity, __MinusInfinity
