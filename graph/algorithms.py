@@ -105,8 +105,8 @@ Infinity = __Infinity()
 
 def DFS (G, v = __unspecified):
     if v not in G.vertices:
-	# The following selects some arbitrary element from G.vertices
-	# without converting the whole mess to a list.
+        # The following selects some arbitrary element from G.vertices
+        # without converting the whole mess to a list.
         v = iter (G.vertices).next()
     neighbors = graph.toAdjacencyLists (G)
     yield v

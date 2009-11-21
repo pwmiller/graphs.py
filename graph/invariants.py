@@ -58,17 +58,17 @@ def is_connected (G):
     '''
     Returns True if and only if $G$ is connected, otherwise returns False.
     '''
-    
+
     delta = minDegree (G)
     n = order (G)
-    
+
     # By Theorem 1.3.15 of West, if $G$ is a simple, $n$-vertex graph with
     # minDegree (G) >= (n-1)/2, then $G$ is connected.
 
     if delta >= (n - 1) / 2:
-	return True
+        return True
     else:
-	return len (list(DFS (G))) == len (G.vertices)
+        return len (list(DFS (G))) == len (G.vertices)
 
 def is_tree (G):
     '''
@@ -88,7 +88,7 @@ def is_triangleFree (G):
 
     n = order (G)
     if size (G) > floor (n**2 / 4.0):
-	return False
+        return False
 
     # Otherwise, recall that the $(i,j)$ entry of the $n$-th power of the
     # adjacency matrix of a graph indicates the number of closed walks
