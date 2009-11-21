@@ -11,7 +11,6 @@ The \code{instances} module provides two broad classes of entity:
 
 import graph
 from combinatorics import pairs
-from sympy import Symbol
 from math import floor
 
 def PetersenGraph ():
@@ -21,6 +20,8 @@ def generalizedPetersenGraph (n, k):
     if n < 2 or k < 1 or k > floor ( (n-1) / 2 ):
         raise ValueError, "Parameters out of range."
 
+def completeGraph (*ns):
+    return NotImplemented
 
 def tetrahedron():
     return graph.Graph (vertices = range (4), edges = pairs (range (4)))

@@ -1,3 +1,9 @@
+'''
+The \code{subgraphs} module contains functions that take a graph $G$
+(and possibly some other things) as input and return a subgraph of
+$G$.
+'''
+
 import graph
 from algorithms import DFS
 

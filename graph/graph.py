@@ -7,14 +7,21 @@ the adjacency list and adjacency matrix representations.
 import sympy
 
 class Graph (object):
+    '''
+    This object implements the mathematical definition of a graph.  That
+    is, a graph $G = (V, E)$ consists of a finite set $V$, called the
+    \emph {vertex set} of $G$, and a set $E$ (called the \emph {edge set}
+    of $G$) of pairs of distinct vertices from $V$
+    '''
     def __init__(self, vertices = None, edges = None):
         if vertices is None:
             vertices = []
         if edges is None:
             edges = []
-	    
+
         self.vertices = set (vertices)
 
+        edges = list (edges)
         for e in edges:
             e = tuple (sorted (e))
             if len (e) != 2 or \
