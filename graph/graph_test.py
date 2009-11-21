@@ -1,38 +1,54 @@
 '''
-This module contains unit tests only.
+This module contains unit tests
 '''
 import unittest
-import instances
-import invariants
+
+# The first several test cases test both the construction of the graphs in
+# graph.instances and the functions in graph.invariants.  The beautiful
+# thing about this is that the functions that calculate invariants and the
+# functions that construct graph instances serve as checks on each other,
+# thus effectively testing them both simultaneously.
+
+from instances import *
+from invariants import *
+
+def ASSERT (expr, msg=''):
+    if not expr:
+        raise unittest.failureException, msg
+
+G = octahedron()
 
 class OctahedralGraphTestCase (unittest.TestCase):
-    def setUp (self):
-        self.G = instances.octahedron()
 
     def testOrder (self):
-        self.failUnless (invariants.order (self.G) == 6)
+        ASSERT (order (G) == 6)
 
     def testSize (self):
-        self.failUnless (invariants.size (self.G) == 12)
+        ASSERT (size (G) == 12)
 
     def testIsConnected (self):
-        self.failUnless (invariants.is_connected (self.G))
+        ASSERT (is_connected (G))
+
+    def testMinDegree (self):
+        ASSERT (minDegree (G) == 4)
+
+    def testMaxDegree (self):
+        ASSERT (maxDegree (G) == 4)
 
     def testIsRegular (self):
-        self.failUnless (invariants.is_regular (self.G))
+        ASSERT (is_regular (G))
 
     def testDegreeSequence (self):
-        self.failUnless (list (invariants.degreeSequence (self.G)) == \
-                         [4, 4, 4, 4, 4, 4] )
+        ASSERT (list (degreeSequence (G)) == [4, 4, 4, 4, 4, 4] )
 
     def testIsTree (self):
-        self.failIf (invariants.is_tree (self.G))
+        ASSERT (not is_tree (G))
 
     def testIsTriangleFree (self):
-        self.failIf (invariants.is_triangleFree (self.G))
+        ASSERT (not is_triangleFree (G))
 
     def testIsComplete (self):
-        self.failIf (invariants.is_complete (self.G))
+        ASSERT (not is_complete (G))
 
 def suite():
     tests = unittest.TestSuite(OctahedralGraphTestCase)
