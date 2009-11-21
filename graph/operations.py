@@ -1,3 +1,8 @@
+'''
+This module defines functions that implement basic operations on
+graphs.
+'''
+
 def graphPower (G, n):
     return NotImplemented
 

@@ -39,6 +39,13 @@ def fromAdjacencyMatrix (M):
     return Graph (vertices = range (n), edges = \
                [ (x,y) for x in range (n) for y in range (n) if M[x,y] != 0])
 
+def toAdjacencyMatrix (G):
+    n = len (G.vertices)
+    M = sympy.matrices.zeros (n)
+    for (u, v) in G.edges:
+        M[u, v] = M[v, u] = 1
+    return M
+
 def fromAdjacencyLists (Ls):
     Ls = dict (Ls)
     vertices = []
@@ -59,13 +66,6 @@ def toAdjacencyLists (G):
             else:
                 adjacencies[v].append (y)
     return adjacencies
-
-def toAdjacencyMatrix (G):
-    n = len (G.vertices)
-    M = sympy.matrices.zeros (n)
-    for (u, v) in G.edges:
-        M[u, v] = M[v, u] = 1
-    return M
 
 def toDotString (G):
     return NotImplemented
