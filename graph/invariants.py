@@ -108,8 +108,8 @@ def is_triangleFree (G):
 
     # Otherwise, recall that the $(i,j)$ entry of the $n$-th power of the
     # adjacency matrix of a graph indicates the number of closed walks
-    # that begin at $v_i$ and end at $v_j$. (West, p. 455, Proposition
-    # 8.6.7.)
+    # of length $n$ that begin at $v_i$ and end at $v_j$. (West, p. 455,
+    # Proposition 8.6.7.)
 
     # A triangle is a closed walk of length $3$ starting and ending at
     # the same vertex.  Thus, we see that $G$ is triangle-free if and
@@ -117,6 +117,17 @@ def is_triangleFree (G):
 
     A = toAdjacencyMatrix (G)
     return (A**3).trace() == 0
+
+def numberOfTriangles (G):
+    '''
+    Returns the number of triangles in $G$ by using the fact that the $(i,i)$
+    entry of the cube of the adjacency matrix of $G$ indicates the number of
+    closed walks of length $3$ that start and end at vertex $v_i$
+    (\textit {i.e.\} the number of triangles that $v_i$ participates in).
+    '''
+
+    A = toAdjacencyMatrix (G)
+    return (A**3).trace() / 6
 
 def is_complete (G):
     '''
