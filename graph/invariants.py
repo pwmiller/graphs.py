@@ -123,7 +123,10 @@ def numberOfTriangles (G):
     Returns the number of triangles in $G$ by using the fact that the $(i,i)$
     entry of the cube of the adjacency matrix of $G$ indicates the number of
     closed walks of length $3$ that start and end at vertex $v_i$
-    (\textit {i.e.\} the number of triangles that $v_i$ participates in).
+    (\textit {i.e.\} the number of triangles that $v_i$ participates in).  To
+    get the total number of triangles in the whole graph, we must note that if
+    three vertices $v_1, v_2, v_3$ form a triangle, the trace counts this
+    six times.  So, we correct for this by dividing by $6$.
     '''
 
     A = toAdjacencyMatrix (G)
