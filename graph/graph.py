@@ -32,6 +32,10 @@ class Graph (object):
         self.edges = set ([frozenset (e) for e in edges])
 
 def fromAdjacencyMatrix (M):
+    '''
+    Constructs a graph $G$ from the matrix $M$, provided it is a valid
+    adjacency matrix for a graph.
+    '''
     M = sympy.matrices.Matrix (M)
     if M != M.transpose():
         raise ValueError, "The adjacency matrix of a graph must be symmetric."
@@ -40,6 +44,9 @@ def fromAdjacencyMatrix (M):
                [ (x,y) for x in range (n) for y in range (n) if M[x,y] != 0])
 
 def toAdjacencyMatrix (G):
+    '''
+    Returns the adjacency matrix of the graph $G$.
+    '''
     n = len (G.vertices)
     M = sympy.matrices.zeros (n)
     for (u, v) in G.edges:
@@ -47,12 +54,22 @@ def toAdjacencyMatrix (G):
     return M
 
 def toIncidenceMatrix (G):
+    '''
+    Returns the incidence matrix $B$ of the graph $G$.  If $G$ has order $n$
+    and size $m$, then $B$ is the $n \times m$ matrix where $b_{ij}$ is $1$
+    if the vertex $v_i$ and the edge $e_j$ are incident, otherwise $0$.
+    '''
     return NotImplemented
 
 def fromIncidenceMatrix (M):
     return NotImplemented
 
 def fromAdjacencyLists (Ls):
+    '''
+    Constructs a graph $G$ from a the sequence of two-element sequences
+    of the form \code { (v, (u_1, u_2, ... u_k) )}, indicating that the
+    vertex $v$ is adjacent to each of $u_1, u_2, \dots, u_k$.
+    '''
     Ls = dict (Ls)
     vertices = []
     edges = []
@@ -63,6 +80,13 @@ def fromAdjacencyLists (Ls):
     return Graph (vertices = vertices, edges = edges)
 
 def toAdjacencyLists (G):
+    '''
+    Returns the dict \code {adjacencies}, where
+    \code {adjacencies.keys()} == list (G.vertices) and for
+    each \code {v} in \code {G.vertices}, we have that
+    \code {adjacencies [v]} is a list of all the vertices adjacent
+    to \code {v} in the graph $G$.
+    '''
     adjacencies = {}
     for v in G.vertices:
         adjacencies [v] = []
@@ -74,4 +98,8 @@ def toAdjacencyLists (G):
     return adjacencies
 
 def toDotString (G):
+    '''
+    Returns a string suitable for passing to the \code {dot} program from
+    the \code {graphviz} graph drawing toolkit.
+    '''
     return NotImplemented

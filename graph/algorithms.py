@@ -6,14 +6,28 @@ some utility data structures.
 import heapq
 import graph
 
-# __unspecified is intended for use as a default keyword parameter.  We don't
-# use None for this because one might want to have None as a vertex in a graph.
-# Since this object is constructed in this module, it's guaranteed not to be a
-# vertex in any graph, unless the end user of this library goes out of his
-# way to access it -- and, in that case, said user deserves any wierd behavior
-# he gets.
+class __Unspecified(object):
+    '''
+    This class only exists to make one instance, called \code {unspecified}.
+    The object \code {unspecified} is used as a default keyword parameter in
+    place of the ubiquitous \code {None}, so we can meaninfully use
+    \code {None} as a vertex in a graph.
+    '''
 
-__unspecified = object()
+    def __repr__(self):
+        return "unspecified"
+
+unspecified = __Unspecified()
+
+def arbitraryElementOf (container):
+    '''
+    Selects some arbitrary element of \code {container} (which need
+    not be indexable -- \textit {e.g.\} a set or generator.
+    '''
+    try:
+        return iter (container).next()
+    except StopIteration:
+        raise IndexError, "No item in container to select."
 
 class PriorityQueue (object):
     '''
@@ -27,9 +41,16 @@ class PriorityQueue (object):
         heapq.heapify (self.__data)
 
     def add (self, item):
+        '''
+        Add an item to the queue.
+        '''
         heapq.heappush (self.__data, item)
 
     def extract_min (self):
+        '''
+        Find and return the item in the queue with minimum priority,
+        removing it from the queue.
+        '''
         return heapq.heappop (self.__data)
 
     def __contains__(self, item):
@@ -40,17 +61,28 @@ class PriorityQueue (object):
 
 class UnionFind (object):
     '''
-    This is a standard union find data structure.
+    This is a standard union find data structure.  We implement path
+    compression and union by rank to obtain amortized asymptotic
+    performance of $\mathcal{O}(\alpha (n))$, where $\alpha$ is the
+    inverse Ackermann function.  In practice, we can basically assume
+    $\alpha (n) \leq 5$, so this is effectively amortized constant-time
+    performance.
     '''
     def __init__(self):
         self.parent = {}
         self.rank   = {}
 
     def makeSet (self, x):
+        '''
+        Adds the set $\{x\}$ to the data structure.
+        '''
         self.parent [x] = x
         self.rank [x] = 0
 
     def find (self, x):
+        '''
+        Returns the set containing $x$.
+        '''
         parent = self.parent
         if parent[x] == x:
             return x
@@ -59,6 +91,9 @@ class UnionFind (object):
             return parent[x]
 
     def union (self, x, y):
+        '''
+        Merges the sets containing $x$ and $y$ into a single set.
+        '''
         rank = self.rank
         parent = self.parent
 
@@ -87,6 +122,9 @@ class __Infinity (object):
         #pylint: disable-msg=r0201
         return True
 
+    def __repr__ (self):
+        return "+Infinity"
+
 class __MinusInfinity (object):
     ''' Instances X of this class satisfy X < Y for all Y. '''
 
@@ -100,18 +138,27 @@ class __MinusInfinity (object):
         #pylint: disable-msg=r0201
         return False
 
+    def __repr__ (self):
+        return "-Infinity"
+
 MinusInfinity = __MinusInfinity()
 Infinity = __Infinity()
 
-def DFS (G, v = __unspecified):
-    if v not in G.vertices:
-        # The following selects some arbitrary element from G.vertices
-        # without converting the whole mess to a list.
-        v = iter (G.vertices).next()
+def DFS (G, start = unspecified):
+    '''
+    This is a generator that yields vertices from the vertex set of graph
+    $G$ in the order they are encountered in a depth-first search of $G$
+    starting from the vertex \code{start} (if specified) or from some
+    arbitrary vertex in \code {G.vertices} if \code {start} is not
+    specified.
+    '''
+    if start is unspecified:
+        start = arbitraryElementOf (G.vertices)
+
     neighbors = graph.toAdjacencyLists (G)
-    yield v
-    visited = set ([v])
-    stack = neighbors [v]
+    yield start
+    visited = set ([start])
+    stack = neighbors [start]
     while stack:
         w = stack.pop()
         if w not in visited:
@@ -119,12 +166,22 @@ def DFS (G, v = __unspecified):
             visited.add (w)
             stack.extend (neighbors [w])
 
-def BFS (G, v = __unspecified):
+def BFS (G, start = unspecified):
+    '''
+    This is a generator that yields the vertices of $G$ in the order
+    they are encountered during a breadth-first search of $G$ starting at the
+    vertex \code {start} (if specified), or starting at some arbitrary vertex
+    in \code {G.vertices} if not specified.
+    '''
     return NotImplemented
 
-def Prim (G, root = __unspecified):
-    if root not in G.vertices:
-        root = G.vertices[0]
+def Prim (G, root = unspecified):
+    '''
+    Returns the edges of a minimum-weight spanning tree of $G$,
+    starting from the vertex \code {root} (if specified).
+    '''
+    if root is unspecified:
+        root = arbitraryElementOf(G.vertices)
     key = {}
     Pi = {}
     adj = graph.toAdjacencyLists(G)
@@ -141,8 +198,13 @@ def Prim (G, root = __unspecified):
                 key[v] = G.weight ( (u, v) )
     return [(v, Pi[v]) for v in G.vertices if v is not root]
 
-def Kruskal (G):
-    weight = G.weight
+def Kruskal (G, weight = None):
+    '''
+    Returns the vertices of a minimum-weight spanning tree of $G$
+    obtained by the algorithm of Kruskal.
+    '''
+    if weight is None:
+        weight = lambda edge: 1
     T = set ([])
     U = UnionFind()
     Q = PriorityQueue([(weight (e), tuple(e)) for e in G.edges])
@@ -150,6 +212,14 @@ def Kruskal (G):
         U.makeSet (v)
 
     while Q:
+
+        # pylint complains that we don't use the variable \code{w},
+        # but it's really only there so we can unpack the (weight, edge)
+        # tuple extracted from the queue in a nice way.  The following
+        # comment is to silence pylint's complaining:
+
+        # pylint: disable-msg=W0612
+
         (w, (u, v)) = Q.extract_min()
         if U.find (u) != U.find (v):
             T.add ( (u, v) )
@@ -164,6 +234,11 @@ def bridges (G):
     return NotImplemented
 
 def realizeDegreeSequence (*seq):
+    '''
+    Returns a graph $G$ such that \code {degreeSequence (G) == sorted (seq)}
+    if \code {sorted (seq)} is a graphical degree sequence.  We use the
+    standard algorithm based on the Havel-Hakimi theorem.
+    '''
     return NotImplemented
 
-del __Infinity, __MinusInfinity
+del __Infinity, __MinusInfinity, __Unspecified
