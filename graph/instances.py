@@ -31,14 +31,16 @@ def completeGraph (*ns):
     '''
     if len (ns) == 1:
         return completeGraph ( * ([1] * ns[0]) )
-    n = sum (ns)
-    vertices = range (n)
-    partition_indices = [sum (ns[:i]) for i in range (len (ns))]
-    partite_sets = [vertices[partition_indices[i]:partition_indices[i+1]] \
-                    for i in range (len (partition_indices) - 1)]
-    partite_sets.append (vertices[partition_indices [-1]:] )
 
+    vertices = range (sum (ns))
+    partite_sets = []
     edges = []
+
+    start = 0
+    for n in ns:
+	partite_sets.append (range (start, start + n))
+	start += n
+	
     for i in range (len (partite_sets)):
         for j in range (i + 1, len (partite_sets)):
             edges.extend ([ (u, v) for u in partite_sets [i] for v in \

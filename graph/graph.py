@@ -19,15 +19,16 @@ class Graph (object):
         if edges is None:
             edges = []
 
-        self.vertices = set (vertices)
+        self.vertices = frozenset (vertices)
 
-        edges = list (edges)
-        for e in edges:
-            e = tuple (sorted (e))
-            if len (e) != 2 or \
-                   e[0] not in self.vertices or e[1] not in self.vertices:
-                raise TypeError ("%(edge)s is not a valid edge." % \
-                      { 'edge' : repr (e) })
+        edges = map (frozenset, list (edges))
+
+	def invalid (e):
+	    return len (e) != 2 or not (e <= self.vertices)
+
+	if any (invalid (e) for e in edges):
+	    raise TypeError ("%(edge)s is not a valid edge." %
+			     { 'edge' : repr (e) })
 
         self.edges = set ([frozenset (e) for e in edges])
 
