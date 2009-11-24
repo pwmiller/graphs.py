@@ -12,6 +12,7 @@ The \code{instances} module provides two broad classes of entity:
 import graph
 from combinatorics import pairs
 from math import floor
+from itertools import product
 
 def generalizedPetersenGraph (n, k):
     if n < 2 or k < 1 or k > floor ( (n-1) / 2 ):
@@ -32,19 +33,14 @@ def completeGraph (*ns):
     if len (ns) == 1:
         return completeGraph ( * ([1] * ns[0]) )
 
-    vertices = range (sum (ns))
-    partite_sets = []
+    n = sum(ns)
+    vertices = range (n)
     edges = []
-
-    start = 0
-    for n in ns:
-	partite_sets.append (range (start, start + n))
-	start += n
-	
-    for i in range (len (partite_sets)):
-        for j in range (i + 1, len (partite_sets)):
-            edges.extend ([ (u, v) for u in partite_sets [i] for v in \
-                           partite_sets [j] ])
+    for group in xrange(len(ns)):
+        lo = sum(ns[:group-1])
+        hi = sum(ns[:group])
+        edges.extend((i, j) for (i, j) in product (
+	    xrange(lo, hi), xrange(hi, n)))
 
     return graph.Graph (vertices = vertices, edges = edges)
 
