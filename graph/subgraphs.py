@@ -32,4 +32,6 @@ def components (G):
         V = [v for v in V if v not in componentVertices]
 
 def nontrivialComponents (G):
-    return NotImplemented
+    for component in components (G):
+	if order (component) > 1:
+	    yield component
