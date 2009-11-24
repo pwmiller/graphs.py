@@ -138,6 +138,12 @@ def is_complete (G):
     '''
     return size (G) == binomial (order (G), 2)
 
+def is_empty (G):
+    '''
+    Returns True if $G$ is an empty graph, otherwise False.
+    '''
+    return size (G) == 0
+
 def eigenvalues (G):
     '''
     Returns the eigenvalues of the adjacency matrix of $G$.

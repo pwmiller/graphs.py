@@ -51,6 +51,8 @@ def binomial (n, k):
     '''
     if k > n / 2:
         return binomial (n, n-k)
+    if k < 0:
+	return 0
     r = d = 1
     if k > n:
         return 0
