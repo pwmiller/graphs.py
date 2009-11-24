@@ -23,12 +23,12 @@ class Graph (object):
 
         edges = map (frozenset, list (edges))
 
-	def invalid (e):
-	    return len (e) != 2 or not (e <= self.vertices)
+        def invalid (e):
+            return len (e) != 2 or not (e <= self.vertices)
 
-	if any (invalid (e) for e in edges):
-	    raise TypeError ("%(edge)s is not a valid edge." %
-			     { 'edge' : repr (e) })
+        if any (invalid (e) for e in edges):
+            raise TypeError ("%(edge)s is not a valid edge." %
+                             { 'edge' : repr (e) })
 
         self.edges = set ([frozenset (e) for e in edges])
 

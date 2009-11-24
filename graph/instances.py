@@ -40,7 +40,7 @@ def completeGraph (*ns):
         lo = sum(ns[:group-1])
         hi = sum(ns[:group])
         edges.extend((i, j) for (i, j) in product (
-	    xrange(lo, hi), xrange(hi, n)))
+            xrange(lo, hi), xrange(hi, n)))
 
     return graph.Graph (vertices = vertices, edges = edges)
 
