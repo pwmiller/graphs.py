@@ -27,7 +27,7 @@ def arbitraryElementOf (container):
     try:
         return iter (container).next()
     except StopIteration:
-        raise IndexError, "No item in container to select."
+        raise IndexError ("No item in container to select.")
 
 class PriorityQueue (object):
     '''

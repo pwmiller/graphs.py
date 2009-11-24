@@ -26,8 +26,8 @@ class Graph (object):
             e = tuple (sorted (e))
             if len (e) != 2 or \
                    e[0] not in self.vertices or e[1] not in self.vertices:
-                raise TypeError, "%(edge)s is not a valid edge." % \
-                      { 'edge' : repr (e) }
+                raise TypeError ("%(edge)s is not a valid edge." % \
+                      { 'edge' : repr (e) })
 
         self.edges = set ([frozenset (e) for e in edges])
 
@@ -38,7 +38,7 @@ def fromAdjacencyMatrix (M):
     '''
     M = sympy.matrices.Matrix (M)
     if M != M.transpose():
-        raise ValueError, "The adjacency matrix of a graph must be symmetric."
+        raise ValueError ("The adjacency matrix of a graph must be symmetric.")
     n = M.shape[0]
     return Graph (vertices = range (n), edges = \
                [ (x,y) for x in range (n) for y in range (n) if M[x,y] != 0])

@@ -4,6 +4,7 @@ Python that integrates well with \code{sympy}.  The eventual goal is
 to get the module included in the \code {sympy} distribution.
 '''
 
+from graph import *
 import algorithms
 import instances
 import invariants

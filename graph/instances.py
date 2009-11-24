@@ -15,7 +15,7 @@ from math import floor
 
 def generalizedPetersenGraph (n, k):
     if n < 2 or k < 1 or k > floor ( (n-1) / 2 ):
-        raise ValueError, "Parameters out of range."
+        raise ValueError ("Parameters out of range.")
 
 def PetersenGraph ():
     return generalizedPetersenGraph (5, 2)
