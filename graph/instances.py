@@ -30,19 +30,19 @@ def completeGraph (*ns):
     the sequence \code {n_1, n_2, \dots, n_k}.
     '''
     if len (ns) == 1:
-	return completeGraph ( * ([1] * ns[0]) )
+        return completeGraph ( * ([1] * ns[0]) )
     n = sum (ns)
     vertices = range (n)
-    partition_indices = [sum (ns[:i]) for i in range (len (ns))] 
+    partition_indices = [sum (ns[:i]) for i in range (len (ns))]
     partite_sets = [vertices[partition_indices[i]:partition_indices[i+1]] \
-		    for i in range (len (partition_indices) - 1)]
+                    for i in range (len (partition_indices) - 1)]
     partite_sets.append (vertices[partition_indices [-1]:] )
 
     edges = []
     for i in range (len (partite_sets)):
-	for j in range (i + 1, len (partite_sets)):
-	    edges.extend ([ (u, v) for u in partite_sets [i] for v in \
-			   partite_sets [j] ])
+        for j in range (i + 1, len (partite_sets)):
+            edges.extend ([ (u, v) for u in partite_sets [i] for v in \
+                           partite_sets [j] ])
 
     return graph.Graph (vertices = vertices, edges = edges)
 

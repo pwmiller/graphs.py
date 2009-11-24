@@ -61,6 +61,9 @@ class OctahedralGraphTestCase (unittest.TestCase):
     def testIsTriangleFree (self):
         assert (not is_triangleFree (G))
 
+    def testNumberOfTriangles (self):
+        assert (numberOfTriangles (G) == 8)
+
     def testIsComplete (self):
         assert (not is_complete (G))
 

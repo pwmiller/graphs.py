@@ -52,5 +52,5 @@ def nontrivialComponents (G):
     is, the ones having more than one vertex.
     '''
     for component in components (G):
-	if order (component) > 1:
-	    yield component
+        if order (component) > 1:
+            yield component
