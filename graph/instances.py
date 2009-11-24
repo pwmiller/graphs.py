@@ -113,7 +113,7 @@ def icosahedron():
 # come up frequently enough in graph theory that they have names.
 
 def triangle():
-    return K(3)
+    return completeGraph(3)
 
 def claw():
     return NotImplemented
