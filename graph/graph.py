@@ -41,8 +41,9 @@ def fromAdjacencyMatrix (M):
     if M != M.transpose():
         raise ValueError ("The adjacency matrix of a graph must be symmetric.")
     n = M.shape[0]
-    return Graph (vertices = range (n), edges = \
-               [ (x,y) for x in range (n) for y in range (n) if M[x,y] != 0])
+    vertices = range (n)
+    edges = [ (x, y) for x in range (n) for y in range (n) if M[x, y] != 0]
+    return Graph (vertices = vertices, edges = edges)
 
 def toAdjacencyMatrix (G):
     '''
