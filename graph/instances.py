@@ -106,6 +106,9 @@ def icosahedron():
           [0, 0, 0, 0, 0, 1, 1, 1, 0, 1, 0, 1],
           [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0] ) )
 
+def gridGraph (m, n):
+    return NotImplemented
+
 # The following are listed on p. 12 of West as "The Graph Menagerie."
 # The menagierie is a set of graphs on $5$ or fewer vertices that
 # come up frequently enough in graph theory that they have names.
@@ -133,3 +136,4 @@ def bowtie():
 
 def dart():
     return NotImplemented
+

@@ -6,7 +6,10 @@ graphs.
 def graphPower (G, n):
     return NotImplemented
 
-def graphProduct (G, H):
+def graphCartesianProduct (G, H):
+    return NotImplemented
+
+def graphTensorProduct (G, H):
     return NotImplemented
 
 def graphJoin (G, H):
