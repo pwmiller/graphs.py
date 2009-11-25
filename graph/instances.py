@@ -17,7 +17,9 @@ from itertools import product
 def generalizedPetersenGraph (n, k):
     if n < 2 or k < 1 or k > floor ( (n-1) / 2 ):
         raise ValueError ("Parameters out of range.")
-
+    U = range (n)
+    V = range (n, n + k)
+    
 def PetersenGraph ():
     return generalizedPetersenGraph (5, 2)
 
@@ -136,4 +138,3 @@ def bowtie():
 
 def dart():
     return NotImplemented
-
