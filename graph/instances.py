@@ -17,8 +17,15 @@ from itertools import product
 def generalizedPetersenGraph (n, k):
     if n < 2 or k < 1 or k > floor ( (n-1) / 2 ):
         raise ValueError ("Parameters out of range.")
-    U = range (n)
-    V = range (n, n + k)
+    u = range (n)
+    v = range (n, 2 * n)
+    vertices = u + v
+    edges = []
+    for i in range (n):
+        edges.append ( (v[i], v[(i+1) % n]) )
+        edges.append ( (v[i], u[i]) )
+        edges.append ( (u[i], u[(i+k) % n]) )
+    return graph.Graph (vertices = vertices, edges = edges)
     
 def PetersenGraph ():
     return generalizedPetersenGraph (5, 2)
@@ -57,41 +64,19 @@ def tetrahedron():
     return completeGraph (4)
 
 def cube():
-    return graph.fromAdjacencyMatrix (
-        ([0, 1, 0, 1, 1, 0, 0, 0],
-         [1, 0, 1, 0, 0, 1, 0, 0],
-         [0, 1, 0, 1, 0, 0, 1, 0],
-         [1, 0, 1, 0, 0, 0, 0, 1],
-         [1, 0, 0, 0, 0, 1, 0, 1],
-         [0, 1, 0, 0, 1, 0, 1, 0],
-         [0, 0, 1, 0, 0, 1, 0, 1],
-         [0, 0, 0, 1, 1, 0, 1, 0])   )
+    return hypercube (3)
 
 def octahedron():
     return completeGraph (2, 2, 2)
 
 def dodecahedron():
-    return graph.fromAdjacencyMatrix (
-        ([0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-         [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
-         [0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-         [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-         [0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
-         [0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
-         [0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1],
-         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 0]))
+    '''
+    Returns the graph of the dodecahedron.
+    According to
+    http://mathworld.wolfram.com/GeneralizedPetersenGraph.html,
+    this is the same as generalizedPetersenGraph (10,2)
+    '''
+    return generalizedPetersenGraph (10,2)
 
 def icosahedron():
     return graph.fromAdjacencyMatrix (

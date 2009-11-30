@@ -6,6 +6,59 @@ the adjacency list and adjacency matrix representations.
 
 import sympy
 
+class Vertex (object):
+    def __init__(self, data = None, color = None, label = None):
+        self.data = data
+        self.color = color
+        self.label = label
+
+    def __eq__(self, other):
+        if isinstance (other, self.__class__):
+            return self.data == other.data
+        elif isinstance (other, self.data.__class__):
+            return self.data == other
+        else:
+            return False
+
+    def __str__(self):
+        return "Vertex (%(data)s)" % { 'data' : self.data }
+
+    def __repr__(self):
+        return self.__str__()
+
+    def __hash__(self):
+        return self.data.__hash__()
+    
+class Edge (object):
+    def __init__(self, *args, **kwargs):
+        if len (args) != 2:
+            raise TypeError ("An edge must contain exactly two vertices.")
+        self.__data = (args[0], args[1])
+        if 'directed' in kwargs:
+            self.directed = kwargs ['directed']
+        else:
+            self.directed = False
+
+    def __getitem__(self, key):
+        if key == 0 or key == 1:
+            return self.__data[key]
+        elif not isinstance (key, int):
+            raise TypeError ("Valid indices are 0 or 1")
+        else:
+            raise IndexError ("Valid indices are 0 or 1")
+
+    def __len__(self):
+        return len (self.__data)
+
+    def __str__(self):
+        return "(%(v1)s%(directed)s%(v2)s)" % \
+               { 'v1' : self [0],
+                 'v2' : self [1],
+                 'directed': ' -> ' if self.directed else ', ' }
+
+    def __repr__(self):
+        return self.__str__()
+    
 class Graph (object):
     '''
     This object implements the mathematical definition of a graph.  That
@@ -13,24 +66,21 @@ class Graph (object):
     \emph {vertex set} of $G$, and a set $E$ (called the \emph {edge set}
     of $G$) of pairs of distinct vertices from $V$
     '''
-    def __init__(self, vertices = None, edges = None):
+    def __init__(self, vertices = None, edges = None, directed = False):
         if vertices is None:
             vertices = []
         if edges is None:
             edges = []
 
-        self.vertices = frozenset (vertices)
+        self.vertices = list (set ([ Vertex (v) for v in vertices ]))
+        
+        for e in edges:
+            if e[0] not in self.vertices or \
+               e[1] not in self.vertices or \
+               len (e) != 2:
+                raise TypeError ("%(edge)s is not a valid edge." % { 'edge' : e } )
 
-        edges = map (frozenset, list (edges))
-
-        def invalid (e):
-            return len (e) != 2 or not (e <= self.vertices)
-
-        if any (invalid (e) for e in edges):
-            raise TypeError ("%(edge)s is not a valid edge." %
-                             { 'edge' : repr (e) })
-
-        self.edges = set ([frozenset (e) for e in edges])
+        self.edges = [ Edge (e[0], e[1], directed = directed) for e in edges ]
 
 def fromAdjacencyMatrix (M):
     '''
@@ -39,11 +89,13 @@ def fromAdjacencyMatrix (M):
     '''
     M = sympy.matrices.Matrix (M)
     if M != M.transpose():
-        raise ValueError ("The adjacency matrix of a graph must be symmetric.")
+        directed = True
+    else:
+        directed = False
     n = M.shape[0]
     vertices = range (n)
     edges = [ (x, y) for x in range (n) for y in range (n) if M[x, y] != 0]
-    return Graph (vertices = vertices, edges = edges)
+    G = Graph (vertices = vertices, edges = edges, directed = directed)
 
 def toAdjacencyMatrix (G):
     '''
@@ -94,9 +146,9 @@ def toAdjacencyLists (G):
         adjacencies [v] = []
         for (x, y) in [e for e in G.edges if v in e]:
             if x != v:
-                adjacencies[v].append (x)
+                adjacencies[v].append (Vertex(x))
             else:
-                adjacencies[v].append (y)
+                adjacencies[v].append (Vertex(y))
     return adjacencies
 
 def toDotString (G):
