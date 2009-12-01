@@ -135,11 +135,14 @@ def toAdjacencyLists (G):
     adjacencies = {}
     for v in G.vertices:
         adjacencies [v] = []
-        for (x, y) in [e for e in G.edges if v in e]:
-            if x != v:
-                adjacencies[v].append (x)
+        for edge in [e for e in G.edges if v in e]:
+            if edge.directed:
+                if edge[0] == v:
+                    adjacencies[v].append (edge[1])
             else:
-                adjacencies[v].append (y)
+                u = [x for x in edge if x != v] [0]
+                adjacencies[v].append (u)
+                
     return adjacencies
 
 def toDotString (G):
