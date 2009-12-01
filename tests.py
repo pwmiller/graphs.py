@@ -68,6 +68,9 @@ class OctahedralGraphTestCase (unittest.TestCase):
     def testIsComplete (self):
         assert not is_complete (self.G)
 
+    def testIsEmpty (self):
+        assert not is_empty (self.G)
+        
     def testEigenvalues (self):
         eigenvals = eigenvalues (self.G)
 
@@ -118,6 +121,9 @@ class PetersenGraphTestCase (unittest.TestCase):
     def testIsComplete (self):
         assert not is_complete (self.P)
 
+    def testIsEmpty (self):
+        assert not is_empty (self.P)
+        
     def testEigenvalues (self):
         eigenvals = eigenvalues (self.P)
 
