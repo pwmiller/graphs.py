@@ -84,7 +84,7 @@ def fromAdjacencyMatrix (M):
     edges = [ (x, y) for x in range (n) for y in range (n) if M[x, y] != 0]
     G = Graph (vertices = vertices, edges = edges, directed = directed)
 
-def toAdjacencyMatrix (G):
+def adjacencyMatrix (G):
     '''
     Returns the adjacency matrix of the graph $G$.
     '''
@@ -98,16 +98,19 @@ def toAdjacencyMatrix (G):
             M[j, i] = 1
     return M
 
-def toIncidenceMatrix (G):
+def incidenceMatrix (G):
     '''
     Returns the incidence matrix $B$ of the graph $G$.  If $G$ has order $n$
     and size $m$, then $B$ is the $n \times m$ matrix where $b_{ij}$ is $1$
     if the vertex $v_i$ and the edge $e_j$ are incident, otherwise $0$.
     '''
-    return NotImplemented
+    n = len (G.vertices)
+    m = len (G.edges)
 
-def fromIncidenceMatrix (M):
-    return NotImplemented
+    def b(i, j):
+        return G.vertices [i] in G.edges [j]
+    
+    return sympy.matrices.Matrix (n, m, b)
 
 def fromAdjacencyLists (Ls):
     '''
@@ -124,7 +127,7 @@ def fromAdjacencyLists (Ls):
             edges.append (u, v)
     return Graph (vertices = vertices, edges = edges)
 
-def toAdjacencyLists (G):
+def adjacencyLists (G):
     '''
     Returns the dict \code {adjacencies}, where
     \code {adjacencies.keys()} == list (G.vertices) and for
@@ -145,7 +148,7 @@ def toAdjacencyLists (G):
                 
     return adjacencies
 
-def toDotString (G):
+def dotString (G):
     '''
     Returns a string suitable for passing to the \code {dot} program from
     the \code {graphviz} graph drawing toolkit.

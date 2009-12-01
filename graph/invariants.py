@@ -71,23 +71,13 @@ def is_connected (G):
     '''
     Returns True if and only if $G$ is connected, otherwise returns False.
     '''
-
-    delta = minDegree (G)
-    n = order (G)
-
-    # By Theorem 1.3.15 of West, if $G$ is a simple, $n$-vertex graph with
-    # minDegree (G) >= (n-1)/2, then $G$ is connected.
-
-    if delta >= (n - 1) / 2:
-        return True
-    else:
-        return len (list(DFS (G))) == len (G.vertices)
+    return len (list(DFS (G))) == order (G)
 
 def is_tree (G):
     '''
     Returns True if and only if $G$ is a tree, otherwise returns False.
     '''
-    return is_connected (G) and len (G.edges) == len (G.vertices) - 1
+    return is_connected (G) and size (G) == order (G) - 1
 
 def is_bipartite (G):
     '''
@@ -115,7 +105,7 @@ def is_triangleFree (G):
     # the same vertex.  Thus, we see that $G$ is triangle-free if and
     # only if $\trace (A^3) = 0$, where $A$ is the adjacency matrix of $G$.
 
-    A = toAdjacencyMatrix (G)
+    A = adjacencyMatrix (G)
     return (A**3).trace() == 0
 
 def numberOfTriangles (G):
@@ -129,7 +119,7 @@ def numberOfTriangles (G):
     six times.  So, we correct for this by dividing by $6$.
     '''
 
-    A = toAdjacencyMatrix (G)
+    A = adjacencyMatrix (G)
     return (A**3).trace() / 6
 
 def is_complete (G):
@@ -148,7 +138,7 @@ def eigenvalues (G):
     '''
     Returns the eigenvalues of the adjacency matrix of $G$.
     '''
-    eigenvals = toAdjacencyMatrix(G).eigenvals()
+    eigenvals = adjacencyMatrix(G).eigenvals()
 
     # The following is necessary because the dictionary returned by
     # \code{sympy.Matrix.eigenvals()} uses \code{sympy.Integer}s as

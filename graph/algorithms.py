@@ -179,7 +179,7 @@ def DFS (G, start = unspecified):
     if start is unspecified:
         start = arbitraryElementOf (G.vertices)
 
-    neighbors = graph.toAdjacencyLists (G)
+    neighbors = graph.adjacencyLists (G)
     yield start
     visited = set ([start])
     stack = neighbors [start]
@@ -201,7 +201,7 @@ def BFS (G, start = unspecified):
     if start is unspecified:
         start = arbitraryElementOf (G.vertices)
 
-    neighbors = graph.toAdjacencyLists (G)
+    neighbors = graph.adjacencyLists (G)
     
     reached = Queue([])
     searched = set ([])
@@ -224,7 +224,7 @@ def Prim (G, root = unspecified):
         root = arbitraryElementOf(G.vertices)
     key = {}
     Pi = {}
-    adj = graph.toAdjacencyLists(G)
+    adj = graph.adjacencyLists(G)
     for u in G.vertices:
         key [u] = Infinity
         Pi [u] = None
