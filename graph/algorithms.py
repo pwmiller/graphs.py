@@ -66,10 +66,10 @@ class Queue (object):
     not a priority queue) by wrapping a list object.
     '''
     def __init__(self, data):
-       self.__data = list (data)
+        self.__data = list (data)
 
     def add (self, obj):
-       self.__data.append (obj)
+        self.__data.append (obj)
 
     def remove (self):
         return self.__data.pop (0)
@@ -82,7 +82,7 @@ class Queue (object):
 
     def __contains__(self, obj):
         return self.__data.__contains__(obj)
-    
+
 class UnionFind (object):
     '''
     This is a standard union find data structure.  We implement path
@@ -189,7 +189,7 @@ def DFS (G, start = unspecified):
             yield w
             visited.add (w)
             stack.extend (neighbors [w])
-        
+
 
 def BFS (G, start = unspecified):
     '''
@@ -202,10 +202,10 @@ def BFS (G, start = unspecified):
         start = arbitraryElementOf (G.vertices)
 
     neighbors = graph.adjacencyLists (G)
-    
+
     reached = Queue([])
     searched = set ([])
-    
+
     reached.add (start)
     while not reached.empty():
         v = reached.remove()
@@ -214,7 +214,7 @@ def BFS (G, start = unspecified):
             if w not in searched and w not in reached:
                 reached.add (w)
         searched.add (v)
-        
+
 def Prim (G, root = unspecified):
     '''
     Returns the edges of a minimum-weight spanning tree of $G$,

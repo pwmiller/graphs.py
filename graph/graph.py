@@ -5,7 +5,7 @@ the adjacency list and adjacency matrix representations.
 '''
 
 import sympy
-    
+
 class Edge (object):
     def __init__(self, *args, **kwargs):
         if len (args) != 2:
@@ -45,7 +45,7 @@ class Edge (object):
                        sorted (list ( (other[0], other[1])))
         else:
             return False
-    
+
 class Graph (object):
     '''
     This object implements the mathematical definition of a graph.  That
@@ -60,12 +60,13 @@ class Graph (object):
             edges = []
 
         self.vertices = list (set (vertices))
-        
+
         for e in edges:
             if e[0] not in self.vertices or \
                e[1] not in self.vertices or \
                len (e) != 2:
-                raise TypeError ("%(edge)s is not a valid edge." % { 'edge' : e } )
+                raise TypeError ("%(edge)s is not a valid edge." \
+                                 % { 'edge' : e } )
 
         self.edges = [ Edge (e[0], e[1], directed = directed) for e in edges ]
 
@@ -109,7 +110,7 @@ def incidenceMatrix (G):
 
     def b(i, j):
         return G.vertices [i] in G.edges [j]
-    
+
     return sympy.matrices.Matrix (n, m, b)
 
 def fromAdjacencyLists (Ls):
@@ -145,7 +146,7 @@ def adjacencyLists (G):
             else:
                 u = [x for x in edge if x != v] [0]
                 adjacencies[v].append (u)
-                
+
     return adjacencies
 
 def dotString (G):

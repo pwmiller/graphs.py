@@ -10,7 +10,7 @@ several common graph invariants.
 
 # pylint: disable-msg=W0401
 
-from graph import *
+from graph import adjacencyMatrix
 from algorithms import DFS
 from combinatorics import binomial
 from math import floor
@@ -189,6 +189,21 @@ def chromaticNumber (G):
     Returns the chromatic number of $G$, the minimum number of colors needed
     to color the vertices of $G$ such that no two vertices with the same
     color are adjacent.
+    '''
+    return NotImplemented
+
+def edgeChromaticNumber (G):
+    '''
+    Returns the edge chromatic number of $G$, the minimum number of colors
+    need to color the edges of $G$ such that no two edges with the same color
+    are adjacent.
+    '''
+    return NotImplemented
+
+def independenceNumber (G):
+    '''
+    Returns the independence number of $G$, the size of a maximum independent
+    set in $G$.
     '''
     return NotImplemented
 

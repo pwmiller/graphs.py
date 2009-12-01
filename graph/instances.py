@@ -30,8 +30,11 @@ def generalizedPetersenGraph (n, k):
         edges.append ( (v[i], u[i]) )
         edges.append ( (u[i], u[(i+k) % n]) )
     return graph.Graph (vertices = vertices, edges = edges)
-    
+
 def PetersenGraph ():
+    '''
+    Returns the infamous Petersen graph.
+    '''
     return generalizedPetersenGraph (5, 2)
 
 def oddGraph (k):
@@ -67,17 +70,27 @@ def hypercube (k):
     '''
     G = completeGraph (1)
     P2 = completeGraph (2)
-    for i in xrange (k):
+    while k:
         G = graphCartesianProduct (G, P2)
+        k -= 1
     return G
 
 def tetrahedron():
+    '''
+    Returns the graph of the tetrahedron.
+    '''
     return completeGraph (4)
 
 def cube():
+    '''
+    Returns the graph of the cube.
+    '''
     return hypercube (3)
 
 def octahedron():
+    '''
+    Returns the graph of the octahedron.
+    '''
     return completeGraph (2, 2, 2)
 
 def dodecahedron():
@@ -87,9 +100,12 @@ def dodecahedron():
     http://mathworld.wolfram.com/GeneralizedPetersenGraph.html,
     this is the same as generalizedPetersenGraph (10,2)
     '''
-    return generalizedPetersenGraph (10,2)
+    return generalizedPetersenGraph (10, 2)
 
 def icosahedron():
+    '''
+    Returns the graph of the icosahedron.
+    '''
     return graph.fromAdjacencyMatrix (
         ( [0, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0],
           [1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0],
@@ -112,10 +128,16 @@ def gridGraph (m, n):
 # come up frequently enough in graph theory that they have names.
 
 def triangle():
+    '''
+    Returns the triangle graph, $K_3$.
+    '''
     return completeGraph(3)
 
 def claw():
-    return NotImplemented
+    '''
+    Returns the claw graph, $K_{1,3}$.
+    '''
+    return completeGraph (1,3)
 
 def paw():
     return NotImplemented
