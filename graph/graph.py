@@ -90,8 +90,12 @@ def toAdjacencyMatrix (G):
     '''
     n = len (G.vertices)
     M = sympy.matrices.zeros (n)
-    for (u, v) in G.edges:
-        M[u, v] = M[v, u] = 1
+    for edge in G.edges:
+        i = G.vertices.index (edge[0])
+        j = G.vertices.index (edge[1])
+        M[i, j] = 1
+        if not edge.directed:
+            M[j, i] = 1
     return M
 
 def toIncidenceMatrix (G):
