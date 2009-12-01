@@ -71,8 +71,8 @@ class Graph (object):
 
 def fromAdjacencyMatrix (M):
     '''
-    Constructs a graph $G$ from the matrix $M$, provided it is a valid
-    adjacency matrix for a graph.
+    Constructs a graph $G$ from the matrix $M$.  If $M$ is symmetric, we
+    assume the graph $G$ returned is undirected, otherwise $G$ is directed.
     '''
     M = sympy.matrices.Matrix (M)
     if M != M.transpose():

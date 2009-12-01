@@ -4,6 +4,7 @@ some utility data structures.
 '''
 
 import heapq
+import collections
 import graph
 
 class __Unspecified(object):
@@ -59,6 +60,29 @@ class PriorityQueue (object):
     def __len__(self):
         return len (self.__data)
 
+class Queue (object):
+    '''
+    This object implements a simple, ordinary queue object (\textit{i.e.}
+    not a priority queue) by wrapping a list object.
+    '''
+    def __init__(self, data):
+       self.__data = list (data)
+
+    def add (self, obj):
+       self.__data.append (obj)
+
+    def remove (self):
+        return self.__data.pop (0)
+
+    def __len__(self):
+        return self.__data.__len__()
+
+    def empty (self):
+        return len (self.__data) == 0
+
+    def __contains__(self, obj):
+        return self.__data.__contains__(obj)
+    
 class UnionFind (object):
     '''
     This is a standard union find data structure.  We implement path
@@ -165,6 +189,7 @@ def DFS (G, start = unspecified):
             yield w
             visited.add (w)
             stack.extend (neighbors [w])
+        
 
 def BFS (G, start = unspecified):
     '''
@@ -173,8 +198,23 @@ def BFS (G, start = unspecified):
     vertex \code {start} (if specified), or starting at some arbitrary vertex
     in \code {G.vertices} if not specified.
     '''
-    return NotImplemented
+    if start is unspecified:
+        start = arbitraryElementOf (G.vertices)
 
+    neighbors = graph.toAdjacencyLists (G)
+    
+    reached = Queue([])
+    searched = set ([])
+    
+    reached.add (start)
+    while not reached.empty():
+        v = reached.remove()
+        yield v
+        for w in neighbors [v]:
+            if w not in searched and w not in reached:
+                reached.add (w)
+        searched.add (v)
+        
 def Prim (G, root = unspecified):
     '''
     Returns the edges of a minimum-weight spanning tree of $G$,
