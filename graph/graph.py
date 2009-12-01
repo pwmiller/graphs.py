@@ -5,29 +5,6 @@ the adjacency list and adjacency matrix representations.
 '''
 
 import sympy
-
-class Vertex (object):
-    def __init__(self, data = None, color = None, label = None):
-        self.data = data
-        self.color = color
-        self.label = label
-
-    def __eq__(self, other):
-        if isinstance (other, self.__class__):
-            return self.data == other.data
-        elif isinstance (other, self.data.__class__):
-            return self.data == other
-        else:
-            return False
-
-    def __str__(self):
-        return "Vertex (%(data)s)" % { 'data' : self.data }
-
-    def __repr__(self):
-        return self.__str__()
-
-    def __hash__(self):
-        return self.data.__hash__()
     
 class Edge (object):
     def __init__(self, *args, **kwargs):
@@ -61,7 +38,11 @@ class Edge (object):
 
     def __eq__(self, other):
         if isinstance (other, self.__class__):
-            return self.__data == (other[0], other[1])
+            if self.directed:
+                return self.__data == (other[0], other[1])
+            else:
+                return sorted (list (self.__data)) == \
+                       sorted (list ( (other[0], other[1])))
         else:
             return False
     
@@ -78,7 +59,7 @@ class Graph (object):
         if edges is None:
             edges = []
 
-        self.vertices = list (set ([ Vertex (v) for v in vertices ]))
+        self.vertices = list (set (vertices))
         
         for e in edges:
             if e[0] not in self.vertices or \
@@ -152,9 +133,9 @@ def toAdjacencyLists (G):
         adjacencies [v] = []
         for (x, y) in [e for e in G.edges if v in e]:
             if x != v:
-                adjacencies[v].append (Vertex(x))
+                adjacencies[v].append (x)
             else:
-                adjacencies[v].append (Vertex(y))
+                adjacencies[v].append (y)
     return adjacencies
 
 def toDotString (G):

@@ -13,6 +13,7 @@ import graph
 from combinatorics import pairs
 from math import floor
 from itertools import product
+from operations import graphCartesianProduct
 
 def generalizedPetersenGraph (n, k):
     if n < 2 or k < 1 or k > floor ( (n-1) / 2 ):
@@ -40,7 +41,10 @@ def completeGraph (*ns):
     the sequence \code {n_1, n_2, \dots, n_k}.
     '''
     if len (ns) == 1:
-        return completeGraph ( * ([1] * ns[0]) )
+        if ns[0] == 1:
+            return graph.Graph (vertices = [1], edges = [])
+        else:
+            return completeGraph ( * ([1] * ns[0]) )
 
     n = sum(ns)
     vertices = range (n)
@@ -58,7 +62,11 @@ def hypercube (k):
     Returns the $k$-dimensional hypercube graph.  See West, p. 36,
     example 1.3.8.
     '''
-    return NotImplemented
+    G = completeGraph (1)
+    P2 = completeGraph (2)
+    for i in xrange (k):
+        G = graphCartesianProduct (G, P2)
+    return G
 
 def tetrahedron():
     return completeGraph (4)
