@@ -12,7 +12,10 @@ The \code{instances} module provides two broad classes of entity:
 import graph
 from combinatorics import pairs
 from math import floor
-from itertools import product
+try:
+    from itertools import product
+except ImportError:
+    from compatibility import product
 from operations import graphCartesianProduct
 
 def generalizedPetersenGraph (n, k):

@@ -31,7 +31,7 @@ class Edge (object):
         return "(%(v1)s%(directed)s%(v2)s)" % \
                { 'v1' : self [0],
                  'v2' : self [1],
-                 'directed': ' -> ' if self.directed else ', ' }
+                 'directed': [', ', '->'] [int (self.directed)] }
 
     def __repr__(self):
         return self.__str__()
