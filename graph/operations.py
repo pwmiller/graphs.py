@@ -10,14 +10,21 @@ except ImportError:
 
 from combinatorics import pairs
 
+from graph import Graph, Edge
+
 def graphPower (G, n):
     return NotImplemented
 
 def graphCartesianProduct (G, H):
-    V1 = G.vertices
-    V2 = range (order (G), order (G) + order (H))
-    vertices = product (V1, V2)
-    
+    vertices = list (product (G.vertices, H.vertices))
+    edges = []
+    for u, v in pairs (vertices):
+        if u[0] == v [0] and Edge (u[1], v[1]) in H.edges:
+            edges.append ( (u, v) )
+        if u[1] == v[1] and Edge (u[0], v[0]) in G.edges:
+            edges.append ( (u, v) )
+    return Graph (vertices = vertices, edges = edges)
+
 def graphTensorProduct (G, H):
     return NotImplemented
 

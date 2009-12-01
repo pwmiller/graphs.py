@@ -117,6 +117,17 @@ class PetersenGraphTestCase (unittest.TestCase):
 
     def testIsComplete (self):
         assert not is_complete (self.P)
+
+    def testEigenvalues (self):
+        eigenvals = eigenvalues (self.P)
+
+        # The Petersen graph has eigenvalues -2, 1, and 3 with multiplicities
+        # 4, 5, and 1, respectively.
+
+        assert sorted (eigenvals.keys()) == [-2, 1, 3]
+        assert eigenvals [-2] == 4
+        assert eigenvals [1]  == 5
+        assert eigenvals [3]  == 1
         
 def suite():
     tests = unittest.TestSuite(OctahedralGraphTestCase,

@@ -58,6 +58,12 @@ class Edge (object):
 
     def __repr__(self):
         return self.__str__()
+
+    def __eq__(self, other):
+        if isinstance (other, self.__class__):
+            return self.__data == (other[0], other[1])
+        else:
+            return False
     
 class Graph (object):
     '''
