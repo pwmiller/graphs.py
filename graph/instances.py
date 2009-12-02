@@ -10,7 +10,6 @@ The \code{instances} module provides two broad classes of entity:
 '''
 
 import graph
-from combinatorics import pairs
 from math import floor
 try:
     from itertools import product
@@ -46,6 +45,10 @@ def completeGraph (*ns):
     Returns the complete graph $K_{n_1, n_2, \dots, n_k}$ when passed
     the sequence \code {n_1, n_2, \dots, n_k}.
     '''
+
+    # The folowing is to silence a spurious pylint warning:
+    # pylint: disable-msg=W0142
+
     if len (ns) == 1:
         if ns[0] == 1:
             return graph.Graph (vertices = [1], edges = [])
@@ -137,7 +140,7 @@ def claw():
     '''
     Returns the claw graph, $K_{1,3}$.
     '''
-    return completeGraph (1,3)
+    return completeGraph (1, 3)
 
 def paw():
     return NotImplemented

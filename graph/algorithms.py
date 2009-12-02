@@ -4,7 +4,6 @@ some utility data structures.
 '''
 
 import heapq
-import collections
 import graph
 
 class __Unspecified(object):
@@ -69,15 +68,24 @@ class Queue (object):
         self.__data = list (data)
 
     def add (self, obj):
+        '''
+        Adds an item to the queue.
+        '''
         self.__data.append (obj)
 
     def remove (self):
+        '''
+        Removes the next item from the queue.
+        '''
         return self.__data.pop (0)
 
     def __len__(self):
         return self.__data.__len__()
 
     def empty (self):
+        '''
+        Returns True if the queue is empty, otherwise False.
+        '''
         return len (self.__data) == 0
 
     def __contains__(self, obj):

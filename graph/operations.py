@@ -16,6 +16,16 @@ def graphPower (G, n):
     return NotImplemented
 
 def graphCartesianProduct (G, H):
+    '''
+    Returns the cartesian product of graphs $G$ and $H$, defined
+    as the graph having vertex set $V(G) \times V(H)$.  Vertices
+    $(u_1, u_2)$ and $(v_1, v_2)$ are adjacent in the resulting
+    graph if and only if either:
+    \begin {enumerate}
+        \item $u_1 = v_1$ and $u_2$ is adjacent to $v_2$ in $H$, or
+        \item $u_2 = v_2$ and $u_1$ is adjacent to $v_1$ in $H$.
+    \end{enumerate}
+    '''
     vertices = list (product (G.vertices, H.vertices))
     edges = []
     for u, v in pairs (vertices):

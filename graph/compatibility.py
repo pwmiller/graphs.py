@@ -8,6 +8,10 @@ def product(*args, **kwds):
     '''
     This function replaces itertools.product when it is not available.
     '''
+
+    # The following disables a spurious pylint message:
+    # pylint: disable-msg = W0141
+
     pools = map(tuple, args) * kwds.get('repeat', 1)
     result = [[]]
     for pool in pools:

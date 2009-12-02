@@ -19,6 +19,10 @@ def vertexInducedSubgraph (G, vertices):
     '''
     Return the subgraph of $G$ induced by the set \code {vertices}.
     '''
+
+    # The following disables a spurious warning from pylint:
+    # pylint: disable-msg = W0141
+
     vertices = set (vertices)
     edges = map (tuple, G.edges)
     edges = [ (u, v) for (u, v) in edges if set ([u, v]) <= vertices ]
@@ -28,11 +32,16 @@ def edgeInducedSubgraph (G, edges):
     '''
     Return the subgraph of $G$ induced by the edges in \code {edges}.
     '''
+
+    # The following disables a spurious warning from pylint
+    # pylint: disable-msg = W0141
+
     vertices = []
     edges = map (tuple, edges)
     for (u, v) in edges:
         vertices.extend ( [u, v] )
-    vertices = list (set (vertices))
+    vertices = list (set (vertices).intersection (set (G.vertices)))
+    edges = list (set (edges).intersection (set (G.edges)))
     return graph.Graph (vertices = vertices, edges = edges)
 
 def components (G):

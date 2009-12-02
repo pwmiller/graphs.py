@@ -7,6 +7,16 @@ the adjacency list and adjacency matrix representations.
 import sympy
 
 class Edge (object):
+    '''
+    This object implements a generic graph edge.  If \code {e} is an
+    \code {Edge} object, then \code {e[0]} and \code {e[1]} are the
+    vertices incident with \code {e}.
+
+    If the keyword argument \code {directed = True} is passed to
+    \code {__init__}, then the instance constructed represents the
+    directed edge from \code {e[0]} to \code {e[1]}.  Otherwise, it
+    represents an undirected edge.
+    '''
     def __init__(self, *args, **kwargs):
         if len (args) != 2:
             raise TypeError ("An edge must contain exactly two vertices.")
@@ -83,7 +93,7 @@ def fromAdjacencyMatrix (M):
     n = M.shape[0]
     vertices = range (n)
     edges = [ (x, y) for x in range (n) for y in range (n) if M[x, y] != 0]
-    G = Graph (vertices = vertices, edges = edges, directed = directed)
+    return Graph (vertices = vertices, edges = edges, directed = directed)
 
 def adjacencyMatrix (G):
     '''
