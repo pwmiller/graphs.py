@@ -54,7 +54,7 @@ class OctahedralGraphTestCase (unittest.TestCase):
         assert is_regular (self.G)
 
     def testDegreeSequence (self):
-        assert list (degreeSequence (self.G)) == [4, 4, 4, 4, 4, 4] 
+        assert list (degreeSequence (self.G)) == [4, 4, 4, 4, 4, 4]
 
     def testIsTree (self):
         assert not is_tree (self.G)
@@ -70,7 +70,7 @@ class OctahedralGraphTestCase (unittest.TestCase):
 
     def testIsEmpty (self):
         assert not is_empty (self.G)
-        
+
     def testEigenvalues (self):
         eigenvals = eigenvalues (self.G)
 
@@ -87,7 +87,7 @@ class PetersenGraphTestCase (unittest.TestCase):
 
     def setUp (self):
         self.P = PetersenGraph()
-        
+
     def testOrder (self):
         assert order (self.P) == 10
 
@@ -99,7 +99,7 @@ class PetersenGraphTestCase (unittest.TestCase):
 
     def testMinDegree (self):
         assert minDegree (self.P) == 3
-        
+
     def testMaxDegree (self):
         assert maxDegree (self.P) == 3
 
@@ -123,7 +123,7 @@ class PetersenGraphTestCase (unittest.TestCase):
 
     def testIsEmpty (self):
         assert not is_empty (self.P)
-        
+
     def testEigenvalues (self):
         eigenvals = eigenvalues (self.P)
 
@@ -134,11 +134,11 @@ class PetersenGraphTestCase (unittest.TestCase):
         assert eigenvals [-2] == 4
         assert eigenvals [1]  == 5
         assert eigenvals [3]  == 1
-        
+
 def suite():
     tests = unittest.TestSuite(OctahedralGraphTestCase,
                                PetersenGraphTestCase)
-    
+
 
 if __name__ == '__main__':
     unittest.main()

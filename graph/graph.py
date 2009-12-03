@@ -135,7 +135,7 @@ def fromAdjacencyLists (Ls):
     for v, neighbors in Ls:
         vertices.append (v)
         for u in neighbors:
-            edges.append (u, v)
+            edges.append ( (u, v) )
     return Graph (vertices = vertices, edges = edges)
 
 def adjacencyLists (G):
