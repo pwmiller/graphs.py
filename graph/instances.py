@@ -18,6 +18,12 @@ except ImportError:
 from operations import graphCartesianProduct
 
 def generalizedPetersenGraph (n, k):
+    '''
+    The \emph {generalized Petersen graph} is the graph with vertex
+    set $\{u_0, u_1, \dots, u_{n-1}, v_0, v_1, \dots, v_{n-1}\}$ and
+    edge set $\{u_i u_{i+1}, u_i v_i, v_i v_{i+k}: 0 \leq i \leq n-1\}$,
+    where the subscripts are taken modulo $n$.
+    '''
     if n < 2 or k < 1 or k > floor ( (n-1) / 2 ):
         raise ValueError ("Parameters out of range.")
     u = range (n)
