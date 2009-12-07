@@ -72,6 +72,14 @@ def completeGraph (*ns):
 
     return graph.Graph (vertices = vertices, edges = edges)
 
+def path (n):
+    '''
+    Returns the path graph on $n$ vertices.
+    '''
+    vertices = range (n)
+    edges = [ (i, i+1) for i in range (n-1) ]
+    return graph.Graph (vertices = vertices, edges = edges)
+
 def hypercube (k):
     '''
     Returns the $k$-dimensional hypercube graph.  See West, p. 36,
@@ -130,7 +138,7 @@ def icosahedron():
           [0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0] ) )
 
 def gridGraph (m, n):
-    return NotImplemented
+    return graphCartesianProduct (path (m), path (n))
 
 # The following are listed on p. 12 of West as "The Graph Menagerie."
 # The menagierie is a set of graphs on $5$ or fewer vertices that
