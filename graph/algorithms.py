@@ -3,6 +3,7 @@ This module implements several algorithms on our graph structure and provides
 some utility data structures.
 '''
 
+import collections
 import heapq
 import graph
 
@@ -58,38 +59,6 @@ class PriorityQueue (object):
 
     def __len__(self):
         return len (self.__data)
-
-class Queue (object):
-    '''
-    This object implements a simple, ordinary queue object (\textit{i.e.}
-    not a priority queue) by wrapping a list object.
-    '''
-    def __init__(self, data):
-        self.__data = list (data)
-
-    def add (self, obj):
-        '''
-        Adds an item to the queue.
-        '''
-        self.__data.append (obj)
-
-    def remove (self):
-        '''
-        Removes the next item from the queue.
-        '''
-        return self.__data.pop (0)
-
-    def __len__(self):
-        return self.__data.__len__()
-
-    def empty (self):
-        '''
-        Returns True if the queue is empty, otherwise False.
-        '''
-        return len (self.__data) == 0
-
-    def __contains__(self, obj):
-        return self.__data.__contains__(obj)
 
 class UnionFind (object):
     '''
@@ -211,16 +180,16 @@ def BFS (G, start = unspecified):
 
     neighbors = graph.adjacencyLists (G)
 
-    reached = Queue([])
-    searched = set ([])
+    reached = collections.deque()
+    searched = set()
 
-    reached.add (start)
+    reached.append (start)
     while not reached.empty():
-        v = reached.remove()
+        v = reached.popleft()
         yield v
         for w in neighbors [v]:
             if w not in searched and w not in reached:
-                reached.add (w)
+                reached.append (w)
         searched.add (v)
 
 def Prim (G, root = unspecified):
