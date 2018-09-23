@@ -100,7 +100,7 @@ def adjacencyMatrix (G):
     Returns the adjacency matrix of the graph $G$.
     '''
     n = len (G.vertices)
-    M = sympy.matrices.zeros (n)
+    M = sympy.zeros (n)
     for edge in G.edges:
         i = G.vertices.index (edge[0])
         j = G.vertices.index (edge[1])
