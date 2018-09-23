@@ -21,7 +21,7 @@ class __Unspecified(object):
 
 
 unspecified = __Unspecified()
-
+del __Unspecified
 
 def arbitraryElementOf(container):
     '''
@@ -116,43 +116,8 @@ class UnionFind (object):
             rank[xRoot] += 1
 
 
-class __Infinity (object):
-
-    '''Instances X of this class satisfy X > Y for all Y.'''
-
-    def __lt__(self, other):
-        # pylint: disable-msg=w0613
-        # pylint: disable-msg=r0201
-        return False
-
-    def __gt__(self, other):
-        # pylint: disable-msg=w0613
-        # pylint: disable-msg=r0201
-        return True
-
-    def __repr__(self):
-        return "+Infinity"
-
-
-class __MinusInfinity (object):
-    ''' Instances X of this class satisfy X < Y for all Y. '''
-
-    def __lt__(self, other):
-        # pylint: disable-msg=w0613
-        # pylint: disable-msg=r0201
-        return True
-
-    def __gt__(self, other):
-        # pylint: disable-msg=w0613
-        # pylint: disable-msg=r0201
-        return False
-
-    def __repr__(self):
-        return "-Infinity"
-
-
-MinusInfinity = __MinusInfinity()
-Infinity = __Infinity()
+MinusInfinity = float('-inf')
+Infinity = float('+inf')
 
 
 def DFS(G, start=unspecified):
@@ -271,6 +236,3 @@ def realizeDegreeSequence(*seq):
     standard algorithm based on the Havel-Hakimi theorem.
     '''
     return NotImplemented
-
-
-del __Infinity, __MinusInfinity, __Unspecified
