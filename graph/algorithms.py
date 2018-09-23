@@ -34,7 +34,7 @@ def arbitraryElementOf(container):
         raise IndexError("No item in container to select.")
 
 
-class PriorityQueue (object):
+class PriorityQueue(object):
     '''
     This object wraps the functionality of the heapq module into a single
     class.
@@ -66,7 +66,7 @@ class PriorityQueue (object):
         return len(self.__data)
 
 
-class UnionFind (object):
+class UnionFind(object):
     '''
     This is a standard union find data structure.  We implement path
     compression and union by rank to obtain amortized asymptotic
