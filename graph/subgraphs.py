@@ -8,14 +8,16 @@ import graph
 from algorithms import DFS
 from invariants import order
 
-def graphCenter (G):
+
+def graphCenter(G):
     '''
     Returns the center of $G$, defined as the graph induced by the
     subset of $V(G)$ with minimum eccentricity.
     '''
     return NotImplemented
 
-def vertexInducedSubgraph (G, vertices):
+
+def vertexInducedSubgraph(G, vertices):
     '''
     Return the subgraph of $G$ induced by the set \code {vertices}.
     '''
@@ -23,12 +25,13 @@ def vertexInducedSubgraph (G, vertices):
     # The following disables a spurious warning from pylint:
     # pylint: disable-msg = W0141
 
-    vertices = set (vertices)
-    edges = map (tuple, G.edges)
-    edges = [ (u, v) for (u, v) in edges if set ([u, v]) <= vertices ]
-    return graph.Graph (vertices = vertices, edges = edges)
+    vertices = set(vertices)
+    edges = map(tuple, G.edges)
+    edges = [(u, v) for (u, v) in edges if set([u, v]) <= vertices]
+    return graph.Graph(vertices=vertices, edges=edges)
 
-def edgeInducedSubgraph (G, edges):
+
+def edgeInducedSubgraph(G, edges):
     '''
     Return the subgraph of $G$ induced by the edges in \code {edges}.
     '''
@@ -37,29 +40,31 @@ def edgeInducedSubgraph (G, edges):
     # pylint: disable-msg = W0141
 
     vertices = []
-    edges = map (tuple, edges)
+    edges = map(tuple, edges)
     for (u, v) in edges:
-        vertices.extend ( [u, v] )
-    vertices = list (set (vertices).intersection (set (G.vertices)))
-    edges = list (set (edges).intersection (set (G.edges)))
-    return graph.Graph (vertices = vertices, edges = edges)
+        vertices.extend([u, v])
+    vertices = list(set(vertices).intersection(set(G.vertices)))
+    edges = list(set(edges).intersection(set(G.edges)))
+    return graph.Graph(vertices=vertices, edges=edges)
 
-def components (G):
+
+def components(G):
     '''
     This is a generator that yields the components of $G$ -- that is,
     the maximal connected subgraphs.
     '''
-    V = list (G.vertices)
+    V = list(G.vertices)
     while V:
-        componentVertices = list (DFS (G, V[0]))
-        yield vertexInducedSubgraph (G, componentVertices)
+        componentVertices = list(DFS(G, V[0]))
+        yield vertexInducedSubgraph(G, componentVertices)
         V = [v for v in V if v not in componentVertices]
 
-def nontrivialComponents (G):
+
+def nontrivialComponents(G):
     '''
     This is a generator that yields the nontrivial components -- that
     is, the ones having more than one vertex.
     '''
-    for component in components (G):
-        if order (component) > 1:
+    for component in components(G):
+        if order(component) > 1:
             yield component

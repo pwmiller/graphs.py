@@ -8,19 +8,21 @@ try:
 except ImportError:
     from compatibility import combinations
 
-def pairs (seq):
+
+def pairs(seq):
     '''
     Returns a generator that successively yields all pairs of distinct
     elements of the sequence \code{seq}.
     '''
-    return combinations (seq, 2)
+    return combinations(seq, 2)
 
-def binomial (n, k):
+
+def binomial(n, k):
     '''
     Calculates the binomial coefficient ${n \choose k}$.
     '''
     if k > n / 2:
-        return binomial (n, n-k)
+        return binomial(n, n - k)
     if k < 0:
         return 0
     r = d = 1
